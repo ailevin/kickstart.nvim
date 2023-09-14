@@ -42,6 +42,7 @@ P.S. You can delete this when you're done too. It's your config now :)
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.nofsync = true
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -70,6 +71,18 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
+  -- Some of my own
+  'tpope/vim-unimpaired',
+  'tpope/vim-surround',
+  'junegunn/vim-peekaboo',
+  'junegunn/goyo.vim',
+  'junegunn/limelight.vim',
+  'junegunn/seoul256.vim',
+  'junegunn/fzf',
+  'junegunn/fzf.vim',
+  'NLKNguyen/papercolor-theme',
+  'karb94/neoscroll.nvim',
+  'lifepillar/vim-cheat40',
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -224,6 +237,25 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
+require('neoscroll').setup()
+local t = {}
+-- Syntax: t[keys] = {function, {function arguments}}
+t['<C-k>'] = {'scroll', {'-vim.wo.scroll', 'true', '250'}}
+t['<C-j>'] = {'scroll', { 'vim.wo.scroll', 'true', '250'}}
+-- t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '450'}}
+-- t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '450'}}
+-- t['<C-y>'] = {'scroll', {'-0.10', 'false', '100'}}
+-- t['<C-e>'] = {'scroll', { '0.10', 'false', '100'}}
+-- t['zt']    = {'zt', {'250'}}
+-- t['zz']    = {'zz', {'250'}}
+-- t['zb']    = {'zb', {'250'}}
+
+require('neoscroll.config').set_mappings(t)
+
+vim.g.cheat40_use_default = 0
+vim.g.limelight_default_coefficient = 0.7
+vim.g.limelight_priority = -1
+vim.g.goyo_width = "85%"
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -257,7 +289,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
 vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 500
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -320,6 +352,7 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]resume' })
+vim.keymap.set('n', '<leader>sm', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -392,6 +425,16 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+-- 
+-- My Keymaps
+vim.keymap.set('n', '<leader>f',':Files ' , { desc = 'FZF file finder' })
+vim.keymap.set('n', '<leader>ch', '<cmd>Cheat40<cr>', { desc = 'Open Cheat Sheet' })
+vim.keymap.set('n', '<leader>go', '<cmd>Goyo | set linebreak | Limelight!!<cr>', { desc = 'Toggle Goyo' })
+vim.keymap.set('n', '<leader>ll', '<cmd>Limelight!!<cr>', { desc = 'Toggle Limelight' })
+vim.keymap.set('n', '<leader>sw', '<cmd>set wrap<cr>', { desc = 'Set wrap' })
+vim.keymap.set('n', '<leader>sz', '<cmd>set foldmethod=marker | set foldmarker=[[[,]]] <cr>', { desc = 'Set Foldtex' })
+vim.keymap.set('n', '<leader>tx', '<cmd><cr>', { desc = 'Run latexmk on buffer' })
+vim.keymap.set({ 'i', 'v' }, 'jk', '<ESC>')
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -422,7 +465,8 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  --
+  -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
