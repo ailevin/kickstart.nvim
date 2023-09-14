@@ -86,6 +86,12 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -99,7 +105,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -123,7 +129,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -141,16 +147,16 @@ require('lazy').setup({
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
-        vim.keymap.set({'n', 'v'}, ']c', function()
+        vim.keymap.set({ 'n', 'v' }, ']c', function()
           if vim.wo.diff then return ']c' end
           vim.schedule(function() gs.next_hunk() end)
           return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to next hunk"})
-        vim.keymap.set({'n', 'v'}, '[c', function()
+        end, { expr = true, buffer = bufnr, desc = "Jump to next hunk" })
+        vim.keymap.set({ 'n', 'v' }, '[c', function()
           if vim.wo.diff then return '[c' end
           vim.schedule(function() gs.prev_hunk() end)
           return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to previous hunk"})
+        end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
       end,
     },
   },
@@ -240,8 +246,8 @@ require('lazy').setup({
 require('neoscroll').setup()
 local t = {}
 -- Syntax: t[keys] = {function, {function arguments}}
-t['<C-k>'] = {'scroll', {'-vim.wo.scroll', 'true', '250'}}
-t['<C-j>'] = {'scroll', { 'vim.wo.scroll', 'true', '250'}}
+t['<C-k>'] = { 'scroll', { '-vim.wo.scroll', 'true', '250' } }
+t['<C-j>'] = { 'scroll', { 'vim.wo.scroll', 'true', '250' } }
 -- t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '450'}}
 -- t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '450'}}
 -- t['<C-y>'] = {'scroll', {'-0.10', 'false', '100'}}
@@ -425,15 +431,16 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
--- 
+--
 -- My Keymaps
-vim.keymap.set('n', '<leader>f',':Files ' , { desc = 'FZF file finder' })
+vim.keymap.set('n', '<leader>f', ':Files ', { desc = 'FZF file finder' })
 vim.keymap.set('n', '<leader>ch', '<cmd>Cheat40<cr>', { desc = 'Open Cheat Sheet' })
 vim.keymap.set('n', '<leader>go', '<cmd>Goyo | set linebreak | Limelight!!<cr>', { desc = 'Toggle Goyo' })
 vim.keymap.set('n', '<leader>ll', '<cmd>Limelight!!<cr>', { desc = 'Toggle Limelight' })
 vim.keymap.set('n', '<leader>sw', '<cmd>set wrap<cr>', { desc = 'Set wrap' })
 vim.keymap.set('n', '<leader>sz', '<cmd>set foldmethod=marker | set foldmarker=[[[,]]] <cr>', { desc = 'Set Foldtex' })
 vim.keymap.set('n', '<leader>tx', '<cmd><cr>', { desc = 'Run latexmk on buffer' })
+vim.keymap.set('n', '<leader>q', '<cmd>confirm q<cr>', { desc = 'Quit' })
 vim.keymap.set({ 'i', 'v' }, 'jk', '<ESC>')
 
 -- [[ Configure LSP ]]
