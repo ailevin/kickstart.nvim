@@ -433,7 +433,7 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 --
 -- My Keymaps
-vim.keymap.set('n', '<leader>f', ':Files ', { desc = 'FZF file finder' })
+vim.keymap.set('n', '<leader>ff', ':Files ', { desc = 'FZF file finder' })
 vim.keymap.set('n', '<leader>ch', '<cmd>Cheat40<cr>', { desc = 'Open Cheat Sheet' })
 vim.keymap.set('n', '<leader>go', '<cmd>Goyo | set linebreak | Limelight!!<cr>', { desc = 'Toggle Goyo' })
 vim.keymap.set('n', '<leader>ll', '<cmd>Limelight!!<cr>', { desc = 'Toggle Limelight' })
@@ -442,7 +442,11 @@ vim.keymap.set('n', '<leader>sz', '<cmd>set foldmethod=marker | set foldmarker=[
 vim.keymap.set('n', '<leader>tx', '<cmd><cr>', { desc = 'Run latexmk on buffer' })
 vim.keymap.set('n', '<leader>q', '<cmd>confirm q<cr>', { desc = 'Quit' })
 vim.keymap.set({ 'i', 'v' }, 'jk', '<ESC>')
-
+  -- Easy open oil.nvim
+vim.keymap.set('n', '<leader>fo', function()
+    local oil = require('oil')
+    oil.open(oil.get_current_dir())
+  end, { desc = "Open Oil file manager in directory of current buffer" })
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
