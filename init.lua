@@ -86,6 +86,23 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+
+  {
+  "ThePrimeagen/harpoon",
+  lazy = false,
+  priority = 52,
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+  },
+  config = function()
+    require("harpoon").setup({
+      menu = {
+        width = 80,
+      },
+    })
+  end,
+},
+
   {
     'stevearc/oil.nvim',
     opts = {},
@@ -439,7 +456,7 @@ vim.keymap.set('n', '<leader>go', '<cmd>Goyo | set linebreak | Limelight!!<cr>',
 vim.keymap.set('n', '<leader>ll', '<cmd>Limelight!!<cr>', { desc = 'Toggle Limelight' })
 vim.keymap.set('n', '<leader>sw', '<cmd>set wrap<cr>', { desc = 'Set wrap' })
 vim.keymap.set('n', '<leader>sz', '<cmd>set foldmethod=marker | set foldmarker=[[[,]]] <cr>', { desc = 'Set Foldtex' })
-vim.keymap.set('n', '<leader>tx', '<cmd><cr>', { desc = 'Run latexmk on buffer' })
+vim.keymap.set('n', '<leader>tx', "<cmd>te! latexmk -pvc -pdf %<cr>%", { desc = 'Run latexmk on buffer' })
 vim.keymap.set('n', '<leader>q', '<cmd>confirm q<cr>', { desc = 'Quit' })
 vim.keymap.set({ 'i', 'v' }, 'jk', '<ESC>')
   -- Easy open oil.nvim
@@ -447,6 +464,14 @@ vim.keymap.set('n', '<leader>fo', function()
     local oil = require('oil')
     oil.open(oil.get_current_dir())
   end, { desc = "Open Oil file manager in directory of current buffer" })
+ -- <<<Harpoon>>>
+vim.keymap.set('n', '<leader>ht', require('harpoon.ui').toggle_quick_menu, { desc = 'Toggle Harpoon Menu' })
+vim.keymap.set('n', '<leader>ha', require('harpoon.mark').add_file, { desc = 'Add file to harpoon list' })
+for pos = 0, 9 do
+  vim.keymap.set('n', '<leader>h' .. pos, function()
+      require('harpoon.ui').nav_file(pos)
+    end, { desc = 'Move to harpoon mark #' .. pos })
+  end
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
