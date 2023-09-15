@@ -452,11 +452,12 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- My Keymaps
 vim.keymap.set('n', '<leader>ff', ':Files ', { desc = 'FZF file finder' })
 vim.keymap.set('n', '<leader>ch', '<cmd>Cheat40<cr>', { desc = 'Open Cheat Sheet' })
+vim.keymap.set('n', '<leader>ev', '<cmd>e $MYVIMRC<cr>', { desc = 'Edit Configuration File' })
 vim.keymap.set('n', '<leader>go', '<cmd>Goyo | set linebreak | Limelight!!<cr>', { desc = 'Toggle Goyo' })
 vim.keymap.set('n', '<leader>ll', '<cmd>Limelight!!<cr>', { desc = 'Toggle Limelight' })
 vim.keymap.set('n', '<leader>sw', '<cmd>set wrap<cr>', { desc = 'Set wrap' })
 vim.keymap.set('n', '<leader>sz', '<cmd>set foldmethod=marker | set foldmarker=[[[,]]] <cr>', { desc = 'Set Foldtex' })
-vim.keymap.set('n', '<leader>tx', "<cmd>te! latexmk -pvc -pdf %<cr>%", { desc = 'Run latexmk on buffer' })
+vim.keymap.set('n', '<leader>tx', "<cmd>te! latexmk -pvc -pdf<cr>", { desc = 'Run latexmk on buffer' })
 vim.keymap.set('n', '<leader>q', '<cmd>confirm q<cr>', { desc = 'Quit' })
 vim.keymap.set({ 'i', 'v' }, 'jk', '<ESC>')
   -- Easy open oil.nvim
