@@ -334,8 +334,8 @@ vim.o.termguicolors = true
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -459,6 +459,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- My Keymaps
 vim.keymap.set('n', '<leader>ff', ':Files ', { desc = 'FZF file finder' })
 vim.keymap.set('n', '<leader>ch', '<cmd>Cheat40<cr>', { desc = 'Open Cheat Sheet' })
+vim.keymap.set('n', '<F5>', '<cmd>setlocal spell!<cr>', { desc = 'Toggle Spell Checker' })
 vim.keymap.set('n', '<leader>ev', '<cmd>e $MYVIMRC<cr>', { desc = 'Edit Configuration File' })
 vim.keymap.set('n', '<leader>go', '<cmd>Goyo | set linebreak | Limelight!!<cr>', { desc = 'Toggle Goyo' })
 vim.keymap.set('n', '<leader>ll', '<cmd>Limelight!!<cr>', { desc = 'Toggle Limelight' })
