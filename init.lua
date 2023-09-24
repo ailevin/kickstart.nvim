@@ -108,7 +108,7 @@ require('lazy').setup({
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {},
-    dependencies = { "nvim-treesitter/nvim-treesitter", "hrsh7th/nvim-cmp" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "hrsh7th/nvim-cmp", },
   },
   {
     'stevearc/oil.nvim',
@@ -464,7 +464,7 @@ vim.keymap.set('n', '<leader>go', '<cmd>Goyo | set linebreak | Limelight!!<cr>',
 vim.keymap.set('n', '<leader>ll', '<cmd>Limelight!!<cr>', { desc = 'Toggle Limelight' })
 vim.keymap.set('n', '<leader>sw', '<cmd>set wrap<cr>', { desc = 'Set wrap' })
 vim.keymap.set('n', '<leader>sz', '<cmd>set foldmethod=marker | set foldmarker=[[[,]]] <cr>', { desc = 'Set Foldtex' })
-vim.keymap.set('n', '<leader>tx', "<cmd>te! latexmk -pvc -pdf<cr>", { desc = 'Run latexmk on buffer' })
+vim.keymap.set('n', '<leader>tx', "<cmd>te! latexmk -pvc -pdf %:S<cr>", { desc = 'Run latexmk on buffer' })
 vim.keymap.set('n', '<leader>q', '<cmd>confirm q<cr>', { desc = 'Quit' })
 vim.keymap.set({ 'i', 'v' }, 'jk', '<ESC>')
   -- Easy open oil.nvim
