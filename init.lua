@@ -468,6 +468,9 @@ vim.keymap.set('n', '<leader>sz', '<cmd>set foldmethod=marker | set foldmarker=[
 vim.keymap.set('n', '<leader>tx', "<cmd>te! latexmk -pvc -pdf %:S<cr>", { desc = 'Run latexmk on buffer' })
 vim.keymap.set('n', '<leader>q', '<cmd>confirm q<cr>', { desc = 'Quit' })
 vim.keymap.set({ 'i', 'v' }, 'jk', '<ESC>')
+-- keep block selected after shift
+vim.keymap.set({ 'v' }, '>', '>gv')
+vim.keymap.set({ 'v' }, '<', '<gv')
   -- Easy open oil.nvim
 vim.keymap.set('n', '<leader>fo', function()
     local oil = require('oil')
