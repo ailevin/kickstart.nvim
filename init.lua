@@ -464,8 +464,31 @@ vim.keymap.set('n', '<leader>ev', '<cmd>e $MYVIMRC<cr>', { desc = 'Edit Configur
 vim.keymap.set('n', '<leader>go', '<cmd>Goyo | set linebreak | Limelight!!<cr>', { desc = 'Toggle Goyo' })
 vim.keymap.set('n', '<leader>ll', '<cmd>Limelight!!<cr>', { desc = 'Toggle Limelight' })
 vim.keymap.set('n', '<leader>sw', '<cmd>set wrap<cr>', { desc = 'Set wrap' })
-vim.keymap.set('n', '<leader>sz', '<cmd>set foldmethod=marker | set foldmarker=[[[,]]] <cr>', { desc = 'Set Foldtex' })
-vim.keymap.set('n', '<leader>tx', "<cmd>te! latexmk -pvc -pdf %:S<cr>", { desc = 'Run latexmk on buffer' })
+-- Create a group so the autocmd doesn't duplicate if you reload init.lua
+local tex_group = vim.api.nvim_create_augroup("LatexSettings", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "tex",
+    group = tex_group,
+    callback = function()
+    -- 1. Create a base table for common options
+        local opts = { buffer = true, silent = true }
+
+        -- 2. Use a helper function to merge in the description
+        local function bind(mode, lhs, rhs, desc)
+            vim.keymap.set(mode, lhs, rhs, { buffer = true, silent = true, desc = desc })
+        end
+
+        -- 3. My tex mappings
+        bind('n', '<leader>th', ':0read $DOTS/header.tex<CR>', 'Insert tex header')
+        bind('n', '<leader>tx', ':w<CR>:te! latexmk -pvc -pdf %:S<CR>', 'Compile tex buffer')
+        bind('n', '<leader>tz', '<cmd>set foldmethod=marker | set foldmarker=[[[,]]] <cr>', 'Set texfolds' )
+
+        -- You can also set LaTeX-specific options here
+        vim.opt_local.spell = true
+        vim.opt_local.shiftwidth = 2
+    end
+})
 vim.keymap.set('n', '<leader>q', '<cmd>confirm q<cr>', { desc = 'Quit' })
 vim.keymap.set({ 'i', 'v' }, 'jk', '<ESC>')
 -- keep block selected after shift

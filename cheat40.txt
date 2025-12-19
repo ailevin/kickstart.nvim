@@ -19,6 +19,8 @@ Mappings {{{
     <leader>l       Toggle limelight
     <leader>sv      Source vimrc
     <leader>tx      AsyncRun latexmk on buf
+    <leader>tz      Set texwrap on buf
+    <leader>th      Add tex header to buf
     <leader>ws      Toggle workspace
     <leader>/       Toggle highlight search
     <leader><CR>    No highlight search
